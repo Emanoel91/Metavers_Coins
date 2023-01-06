@@ -50,25 +50,25 @@ with subtab_ALICE:
      fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
      fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=$USD)
      st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-#--------------------------------------------------------------------------------------------------------------------------
+
 with subtab_AXS:
      df = AXS_Price
      fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
      fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=$USD)
      st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-# -------------------------------------------------------------------------------------------------------------------------	
+	
 with subtab_ENJ:
      df = ENJ_Price
      fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
      fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=$USD)
      st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-# --------------------------------------------------------------------------------------------------------------------------
+
 with subtab_MANA:
      df = MANA_Price
      fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
      fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=$USD)
      st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-# --------------------------------------------------------------------------------------------------------------------------
+
 with subtab_SAND:
      df = SAND_Price
      fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
