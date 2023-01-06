@@ -48,14 +48,29 @@ subtab_ALICE, subtab_AXS, subtab_ENJ, subtab_MANA, subtab_SAND = st.tabs(['ALICE
 with subtab_ALICE:
      df = ALICE_Price
      fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
-     fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=None)
+     fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=$USD)
      st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-
+#--------------------------------------------------------------------------------------------------------------------------
 with subtab_AXS:
-     st.subheader('Heatmap of Swaps')
+     df = AXS_Price
+     fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
+     fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=$USD)
+     st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
+# -------------------------------------------------------------------------------------------------------------------------	
 with subtab_ENJ:
-     st.subheader('Heatmap of Swaps')
+     df = ENJ_Price
+     fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
+     fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=$USD)
+     st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
+# --------------------------------------------------------------------------------------------------------------------------
 with subtab_MANA:
-     st.subheader('Heatmap of Swaps')
+     df = MANA_Price
+     fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
+     fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=$USD)
+     st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
+# --------------------------------------------------------------------------------------------------------------------------
 with subtab_SAND:
-     st.subheader('Heatmap of Swaps')
+     df = SAND_Price
+     fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
+     fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=$USD)
+     st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
