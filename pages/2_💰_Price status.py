@@ -57,10 +57,10 @@ Time_interval_between_the_first_and_last_transaction = get_data('Time interval b
 Distribution_of_the_number_of_activity_days = get_data('Distribution of the number of activity days')
 Max_Avg_Median_Min_Transaction_Fees = get_data('Max/Avg/Median/Min Transaction Fees')
 
-subtab_overview, subtab_heatmap = st.tabs(['Overview', 'Heatmap'])
-with subtab_overview:
+subtab_ALICE, subtab_AXS = st.tabs(['ALICE', 'AXS'])
+with subtab_ALICE:
      st.subheader('Overview')
 
 
-with subtab_heatmap:
+with subtab_AXS:
      st.subheader('Heatmap of Swaps')
