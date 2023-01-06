@@ -10,7 +10,7 @@ st.title('Ⓜetaverse Coins')
 # Content
 c1, c2 = st.columns(2)
 
-#c1.image(Image.open('Images/logo.JPG'))
+c1.image(Image.open('Images/logo.JPG'))
 
 st.subheader('📃 Introduction')
 
