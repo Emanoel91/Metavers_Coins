@@ -52,17 +52,17 @@ with subtab_ALICE:
      st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
 
 with subtab_AXS:
-     df = AXS_Price
+     
      
 	
 with subtab_ENJ:
-     df = ENJ_Price
+     
      
 
 with subtab_MANA:
-     df = MANA_Price
+     
      
 
 with subtab_SAND:
-     df = SAND_Price
+     
      
