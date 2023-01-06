@@ -46,7 +46,6 @@ SAND_Price = get_data('SAND Price')
 
 subtab_ALICE, subtab_AXS, subtab_ENJ, subtab_MANA, subtab_SAND = st.tabs(['ALICE', 'AXS', 'ENJ', 'MANA','SAND'])
 with subtab_ALICE:
-     st.subheader('Overview')
      df = ALICE_Price
      fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
      fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=None)
