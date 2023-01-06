@@ -26,41 +26,31 @@ with open('style.css')as f:
 # flipside API
 @st.cache(ttl=600)
 def get_data(query1):
-     if query1 == 'Transactions Overview':
-        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/5954ddc8-9cdf-47cc-b4cb-a67a0d05f75b/data/latest')
-     elif query1 == 'Daily Transactions Data':
-        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/28aad408-cba3-4560-9235-7a5026a5cd1b/data/latest')
+     if query1 == 'ALICE Price':
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/4ccb8e8b-f402-45f1-b566-ffd4137b3f40/data/latest')
+     elif query1 == 'AXS Price':
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/a0bdfb0c-682b-4ce8-9dc4-0eca09ff67cc/data/latest')
+     elif query1 == 'ENJ Price':
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/52cfb301-f485-45a8-b530-150327c33a74/data/latest')
+     elif query1 == 'MANA Price':
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/41239f41-1c18-430c-98ff-ae270dc63733/data/latest')
+     elif query1 == 'SAND Price':
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/44390576-c37d-47ce-a965-e46ae0b7589d/data/latest')
      return None
 
-transactions_overview = get_data('Transactions Overview')
-Daily_Transactions_Data = get_data('Daily Transactions Data')
-Status_of_Transactions = get_data('Status of Transactions')
-Statistical_Data_Number_of_Transactions = get_data('Statistical Data: Number of Transactions')
-Top_20_TX_Signers_Base_on_Transactions_Count = get_data('Top 20 TX Signers Base on Transactions Count')
-Top_20_TX_Receivers_Base_on_Transactions_Count = get_data('Top 20 TX Receivers Base on Transactions Count')
-Transaction_Fees = get_data('Transaction Fees')
-Total_Average_Transactions_Fee = get_data('Total/Average Transactions Fee')
-Top_20_TX_Signers_Based_on_Paid_Fees = get_data('Top 20 TX Signers Based on Paid Fees')
-Statistical_Data_Daily_Transaction_Fees = get_data('Statistical Data: Daily Transaction Fees')
-Classification_of_Blocks_Based_on_TX_Count = get_data('Classification of Blocks Based on TX Count')
-Block_with_Maximum_Transaction_Count = get_data ('Block Maximum Transaction Count')
-Distribution_of_Transactions_Between_Blocks = get_data('Distribution of Transactions Between Blocks')
-Classification_of_Transactions_Based_on_TX_Signers = get_data('Classification of Transactions Based on TX Signers')
-Number_of_New_Addresses = get_data('Number of New Addresses')
-Transactions_Hitmap_Day_of_Week = get_data('Transactions Hitmap: Day of Week')
-Total_Transactions_Count_Over_Days_of_Week = get_data('Total Transactions Count Over Days of Week')
-Total_Transactions_Count_Over_Hours_of_Day = get_data('Total Transactions Count Over Hours of Day')
-Monthly_Transactions_Count_of_Top_TX_Signers = get_data('Monthly Transactions Count of Top TX Signers')
-Monthly_Transactions_Count_of_Top_TX_Receivers = get_data('Monthly Transactions Count of Top TX Receivers')
-Monthly_Transaction_Fees_of_Top_TX_Signers = get_data('Monthly Transaction Fees of Top TX Signers')
-Time_interval_between_the_first_and_last_transaction = get_data('Time interval between the first and last transaction')
-Distribution_of_the_number_of_activity_days = get_data('Distribution of the number of activity days')
-Max_Avg_Median_Min_Transaction_Fees = get_data('Max/Avg/Median/Min Transaction Fees')
+ALICE_Price = get_data('ALICE Price')
+AXS_Price = get_data('AXS Price')
+ENJ_Price = get_data('ENJ Price')
+MANA_Price = get_data('MANA Price')
+SAND_Price = get_data('SAND Price')
 
 subtab_ALICE, subtab_AXS, subtab_ENJ, subtab_MANA, subtab_SAND = st.tabs(['ALICE', 'AXS', 'ENJ', 'MANA','SAND'])
 with subtab_ALICE:
      st.subheader('Overview')
-
+     df = Range_of_Price_Changes
+     fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes(RoPC)', log_y=False)
+     fig.update_layout(showlegend=False, xaxis_title=None, yaxis_title=None)
+     st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
 
 with subtab_AXS:
      st.subheader('Heatmap of Swaps')
