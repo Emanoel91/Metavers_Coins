@@ -62,7 +62,7 @@ SAND_Price_Metric = get_data('SAND Price Metric')
 subtab_ALICE, subtab_AXS, subtab_ENJ, subtab_MANA, subtab_SAND = st.tabs(['ALICE', 'AXS', 'ENJ', 'MANA','SAND'])
 with subtab_ALICE:
      c1, c2 = st.columns(2)
-        with c1:
+     with c1:
                   df = ALICE_Price
                   fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
                   fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
@@ -75,7 +75,7 @@ with subtab_ALICE:
 
 with subtab_AXS:
      c1, c2 = st.columns(2)
-        with c1:
+     with c1:
                   df = ALICE_Price
                   fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
                   fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
@@ -88,7 +88,7 @@ with subtab_AXS:
 	
 with subtab_ENJ:
      c1, c2 = st.columns(2)
-        with c1:
+     with c1:
                   df = ALICE_Price
                   fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
                   fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
@@ -101,7 +101,7 @@ with subtab_ENJ:
 
 with subtab_MANA:
      c1, c2 = st.columns(2)
-        with c1:
+     with c1:
                   df = ALICE_Price
                   fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
                   fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
@@ -114,7 +114,7 @@ with subtab_MANA:
 
 with subtab_SAND:
      c1, c2 = st.columns(2)
-        with c1:
+     with c1:
                   df = ALICE_Price
                   fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
                   fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
