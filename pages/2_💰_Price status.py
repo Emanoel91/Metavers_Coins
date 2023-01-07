@@ -67,8 +67,7 @@ with subtab_ALICE:
              fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
              fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
              st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-              
-	     df = ALICE_Price_Metric
+             df = ALICE_Price_Metric
              fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
              fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
              st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)     
@@ -80,7 +79,6 @@ with subtab_AXS:
              fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
              fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
              st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-              
 	     df = ALICE_Price_Metric
              fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
              fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
@@ -105,21 +103,19 @@ with subtab_MANA:
              fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
              fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
              st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-             
-	          df = ALICE_Price_Metric
-                  fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
-                  fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
-                  st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)     
+             df = ALICE_Price_Metric
+             fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
+             fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
+             st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)     
 
 with subtab_SAND:
      c1, c2 = st.columns(2)
      with c1:
-                  df = ALICE_Price
-                  fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
-                  fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
-                  st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-              
-	          df = ALICE_Price_Metric
-                  fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
-                  fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
-                  st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
+             df = ALICE_Price
+             fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
+             fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
+             st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
+             df = ALICE_Price_Metric
+             fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
+             fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
+             st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
