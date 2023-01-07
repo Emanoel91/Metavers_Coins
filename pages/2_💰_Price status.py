@@ -65,7 +65,7 @@ with subtab_ALICE:
                   fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
                   fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
                   st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-	          st.subheader('Activity Over Time')
+st.subheader('Activity Over Time')
 	          
 		  
      
