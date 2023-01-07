@@ -37,15 +37,15 @@ def get_data(query1):
      elif query1 == 'SAND Price':
         return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/44390576-c37d-47ce-a965-e46ae0b7589d/data/latest')
      elif query1 == 'ALICE Price Metric':
-        return pd.read_json('')
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/50fdb41c-bd0f-40ed-aa99-7d26473f6a2f/data/latest')
      elif query1 == 'AXS Price Metric':
-        return pd.read_json('')
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/6cbdb3c4-ddac-4c58-b8c5-a9f663b06338/data/latest')
      elif query1 == 'ENJ Price Metric':
-        return pd.read_json('')
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/fcb52c3f-fe06-40da-8533-424085c7681b/data/latest')
      elif query1 == 'MANA Price Metric':
-        return pd.read_json('')
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/c6bc79d1-1cc2-4194-a7c5-54a7613dfe4f/data/latest')
      elif query1 == 'SAND Price Metric':
-        return pd.read_json('')
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/23e7ef45-1c0c-47ad-9601-0704189452d4/data/latest')
      return None
 
 ALICE_Price = get_data('ALICE Price')
