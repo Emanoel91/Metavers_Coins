@@ -36,6 +36,16 @@ def get_data(query1):
         return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/41239f41-1c18-430c-98ff-ae270dc63733/data/latest')
      elif query1 == 'SAND Price':
         return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/44390576-c37d-47ce-a965-e46ae0b7589d/data/latest')
+     elif query1 == 'ALICE Price Metric':
+        return pd.read_json('')
+     elif query1 == 'AXS Price Metric':
+        return pd.read_json('')
+     elif query1 == 'ENJ Price Metric':
+        return pd.read_json('')
+     elif query1 == 'MANA Price Metric':
+        return pd.read_json('')
+     elif query1 == 'SAND Price Metric':
+        return pd.read_json('')
      return None
 
 ALICE_Price = get_data('ALICE Price')
@@ -43,12 +53,22 @@ AXS_Price = get_data('AXS Price')
 ENJ_Price = get_data('ENJ Price')
 MANA_Price = get_data('MANA Price')
 SAND_Price = get_data('SAND Price')
+ALICE_Price_Metric = get_data('ALICE Price Metric')
+AXS_Price_Metric = get_data('AXS Price Metric')
+ENJ_Price_Metric = get_data('ENJ Price Metric')
+MANA_Price_Metric = get_data('MANA Price Metric')
+SAND_Price_Metric = get_data('SAND Price Metric')
 
 subtab_ALICE, subtab_AXS, subtab_ENJ, subtab_MANA, subtab_SAND = st.tabs(['ALICE', 'AXS', 'ENJ', 'MANA','SAND'])
 with subtab_ALICE:
                   df = ALICE_Price
                   fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
                   fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
+                  st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
+			
+	          df = ALICE_Price_Metric
+                  fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
+                  fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD', xaxis={'categoryorder':'total ascending'})
                   st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
      
 
