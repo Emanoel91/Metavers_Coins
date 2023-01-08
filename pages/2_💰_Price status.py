@@ -67,8 +67,8 @@ with subtab_ALICE:
      
      c1, c2 = st.columns(2)
      with c1:
-	     df = ALICE_Price_ATH
-             st.metric(label='ALICE Price ATH', value=df['Price ATH'])
+     df = ALICE_Price_ATH
+     st.metric(label='ALICE Price ATH', value=df['Price ATH'])
              df = ALICE_Price
              fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
              fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
