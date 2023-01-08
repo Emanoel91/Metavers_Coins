@@ -120,7 +120,7 @@ with subtab_SAND:
              fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
              fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
              st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
-      with c2:
+     with c2:
             df = SAND_Price_Metric
             fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
             fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD', xaxis={'categoryorder':'total ascending'})
