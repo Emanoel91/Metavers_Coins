@@ -66,11 +66,11 @@ subtab_ALICE, subtab_AXS, subtab_ENJ, subtab_MANA, subtab_SAND = st.tabs(['ALICE
 with subtab_ALICE:
      c1, c2 = st.columns(2)
      with c1:
-     df = ALICE_Price_ATH
-     st.metric(label='ALICE Price ATH', value=df['Price ATH'])	
+            df = ALICE_Price_ATH
+            st.metric(label='ALICE Price ATH', value=df['Price ATH'])	
      with c2:
-     df = ALICE_Price_ATH
-     st.metric(label='Range of Price Change', value=df['RoPC'])
+            df = ALICE_Price_ATH
+            st.metric(label='Range of Price Change', value=df['RoPC'])
      c1, c2 = st.columns(2)
      with c1:             
              df = ALICE_Price
