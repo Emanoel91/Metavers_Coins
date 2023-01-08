@@ -75,9 +75,9 @@ with subtab_ALICE:
 	     @st.cache(ttl=10000)
              def gat_data(query1):
                  if query1 == 'ALICE Price ATH':
-                                return pd.read_json(
-                                                   'https://node-api.flipsidecrypto.com/api/v2/queries/392bbd12-3ba3-4fa8-844b-6bf8f81405e5/data/latest'
-                                                    ) 
+                     return pd.read_json(
+                          'https://node-api.flipsidecrypto.com/api/v2/queries/392bbd12-3ba3-4fa8-844b-6bf8f81405e5/data/latest'
+                     ) 
      with c2:
             df = ALICE_Price_Metric
             fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
