@@ -46,6 +46,8 @@ def get_data(query1):
         return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/c6bc79d1-1cc2-4194-a7c5-54a7613dfe4f/data/latest')
      elif query1 == 'SAND Price Metric':
         return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/23e7ef45-1c0c-47ad-9601-0704189452d4/data/latest')
+     elif query1 == 'ALICE Price ATH':
+        return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/392bbd12-3ba3-4fa8-844b-6bf8f81405e5/data/latest')
      return None
 
 ALICE_Price = get_data('ALICE Price')
@@ -58,15 +60,24 @@ AXS_Price_Metric = get_data('AXS Price Metric')
 ENJ_Price_Metric = get_data('ENJ Price Metric')
 MANA_Price_Metric = get_data('MANA Price Metric')
 SAND_Price_Metric = get_data('SAND Price Metric')
+ALICE_Price_ATH = get_data('ALICE Price ATH')
 
 subtab_ALICE, subtab_AXS, subtab_ENJ, subtab_MANA, subtab_SAND = st.tabs(['ALICE', 'AXS', 'ENJ', 'MANA','SAND'])
 with subtab_ALICE:
+	
      c1, c2 = st.columns(2)
      with c1:
              df = ALICE_Price
              fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
              fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
              st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
+		
+	     @st.cache(ttl=10000)
+             def gat_data(query1):
+                 if query1 == 'ALICE Price ATH':
+                                return pd.read_json(
+                                                   'https://node-api.flipsidecrypto.com/api/v2/queries/392bbd12-3ba3-4fa8-844b-6bf8f81405e5/data/latest'
+                                                    ) 
      with c2:
             df = ALICE_Price_Metric
             fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
@@ -81,6 +92,8 @@ with subtab_AXS:
         fig = px.bar(df, x='DATE', y='RoPC', title='Range of Price Changes', log_y=False)
         fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='$USD')
         st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
+	
+	
   with c2:
         df = AXS_Price_Metric
         fig = px.line(df, x='Day', y='Price', color='TYPE', title='Price per Day', log_y=False)
