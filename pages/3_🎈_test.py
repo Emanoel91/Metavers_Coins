@@ -49,7 +49,7 @@ def get_data(query1):
      elif query1 == 'ALICE Price ATH':
         return pd.read_json('https://node-api.flipsidecrypto.com/api/v2/queries/392bbd12-3ba3-4fa8-844b-6bf8f81405e5/data/latest')
      elif query1 == 'NORMAL DLY sample':
-        return pd.read_json('')
+        return pd.read_json('https://retoolapi.dev/l9dUgA/data')
      return None
 
 ALICE_Price = get_data('ALICE Price')
