@@ -65,4 +65,18 @@ SAND_Price_Metric = get_data('SAND Price Metric')
 ALICE_Price_ATH = get_data('ALICE Price ATH')
 NORMAL_DLY_sample = get_data('NORMAL DLY sample')
 
-             
+
+
+df = NORMAL_DLY_sample
+fig = px.bar(df, x='DATE', y='DLY-TMAX-NORMAL', title='New Addresses ')
+fig.update_layout(legend_title=None, xaxis_title=None, yaxis_title='')
+st.plotly_chart(fig, use_container_width=True, theme=theme_plotly)
+
+
+
+
+
+
+
+
+
