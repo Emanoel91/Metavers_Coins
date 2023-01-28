@@ -20,7 +20,7 @@ import time
 import numpy as np
 import pandas as pd
 
-from tensorflow import keras
+
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.layers import Conv2D, Dense, Dropout, Flatten, MaxPooling2D
 from tensorflow.keras.models import Sequential
