@@ -12,48 +12,74 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+import platform
+import time
+from random import random
+
 import streamlit as st
 
-# # Uncomment this as a block.
-# # This tests that errors before the first st call get caught.
-# def foo():
-# EXPECTED: inline exception
-# a = not_a_real_variable
+st.title("Test of run-on-save")
+secs_to_wait = 5
 
-# foo()
+"""
+How to test this:
+"""
 
-# # Uncomment this as a block.
-# # This tests that errors before the first st call get caught.
-# if True  # EXPECTED: modal dialog
-
-st.title("Syntax error test")
-
-st.info("Uncomment the comment blocks in the source code one at a time.")
-
-st.write(
+st.info(
     """
-    Here's the source file for you to edit:
-    ```
-    examples/syntax_error.py
-    ```
-    """
+    **First of all, make sure you're running the dev version of Streamlit** or
+    that this file lives outside the Streamlit distribution. Otherwise, changes
+    to this file may be ignored!
+"""
 )
 
-st.write("(Some top text)")
+"""
+1. If run-on-save is on, make sure the page changes every few seconds. Then
+   turn run-on-save off in the settings menu and check (2).
+2. If run-on-save is off, make sure "Rerun"/"Always rerun" buttons appear in
+   the status area. Click "Always rerun" and check (1).
+"""
 
-# # Uncomment this as a block.
-# a = not_a_real_variable  # EXPECTED: inline exception.
+st.write("This should change every ", secs_to_wait, " seconds: ", random())
 
-# # Uncomment this as a block.
-# if True  # EXPECTED: modal dialog
+# Sleep for 5s (rather than, say, 1s) because on the first run we need to make
+# sure Streamlit is fully initialized before the timer below expires. This can
+# take several seconds.
+status = st.empty()
+for i in range(secs_to_wait, 0, -1):
+    time.sleep(1)
+    status.text("Sleeping %ss..." % i)
 
-# # Uncomment this as a block.
-# sys.stderr.write('Hello!\n')  # You should not see this.
-# # The line below is a compile-time error. Bad indentation.
-#        this_indentation_is_wrong = True  # EXPECTED: modal dialog
+status.text("Touching %s" % __file__)
 
-# # Uncomment this as a block.
-# # This tests that errors after the first st call get caught.
-# a = not_a_real_variable  # EXPECTED: inline exception.
+platform_system = platform.system()
 
-st.write("(Some bottom text)")
+if platform_system == "Linux":
+    cmd = (
+        "sed -i "
+        "'s/^# MODIFIED AT:.*/# MODIFIED AT: %(time)s/' %(file)s"
+        " && touch %(file)s"
+        % {  # sed on Linux modifies a different file.
+            "time": time.time(),
+            "file": __file__,
+        }
+    )
+
+elif platform_system == "Darwin":
+    cmd = "sed -i bak " "'s/^# MODIFIED AT:.*/# MODIFIED AT: %s/' %s" % (
+        time.time(),
+        __file__,
+    )
+
+elif platform_system == "Windows":
+    raise NotImplementedError("Windows not supported")
+
+else:
+    raise Exception("Unknown platform")
+
+os.system(cmd)
+
+status.text("Touched %s" % __file__)
+
+# MODIFIED AT: 1586542219.90599
