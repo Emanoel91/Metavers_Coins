@@ -1,110 +1,102 @@
 import streamlit as st
-from streamlit_ace import st_ace
-import toml
-import openai
+import spacy
+from annotated_text import annotated_text
+
+st.set_page_config(page_title="Document Anonymizer", page_icon="🔒")
+
+st.image(
+    "https://emojipedia-us.s3.amazonaws.com/source/skype/289/locked_1f512.png",
+    width=125,
+)
+
+st.title("Document Anonymizer")
+
+st.write(
+    """  
+1. Paste some text
+2. Select the entity types to detect (Person, Organization or Location)
+3. Visualize/anonymize the detected entities
+
+	    """
+)
+
+st.header("")
 
 
-@st.experimental_memo(suppress_st_warning=True)  # type: ignore
-def complete_code(input_code: str, codex_args: dict) -> str:
-    """Call OpenAI Codex to convert input code into output code."""
-    # Load your API key from an environment variable or secret management service
-    openai.api_key = st.secrets["OPENAI_API_KEY"]
-
-    # Display a funny mouse moving animation.
-    mouse_gif = st.columns(3)[1].image("mouse.gif")
-
-    # Complete the code
-    try:
-        response = openai.Completion.create(
-            engine="davinci-codex",
-            prompt=input_code,
-            echo=True,
-            **codex_args,
-        )
-        return response["choices"][0]["text"]
-    finally:
-        mouse_gif.empty()
+@st.cache(show_spinner=False, allow_output_mutation=True, suppress_st_warning=True)
+def load_models():
+    french_model = spacy.load("./models/fr/")
+    english_model = spacy.load("./models/en/")
+    models = {"en": english_model, "fr": french_model}
+    return models
 
 
-def rows_of_three(width_ratio=7):
-    """A generator of containers aranged in rows of three."""
-    while True:
-        for col in st.columns([width_ratio, 1, width_ratio, 1, width_ratio])[::2]:
-            yield col
+def process_text(doc, selected_entities, anonymize=False):
+    tokens = []
+    for token in doc:
+        if (token.ent_type_ == "PERSON") & ("PER" in selected_entities):
+            tokens.append((token.text, "Person", "#faa"))
+        elif (token.ent_type_ in ["GPE", "LOC"]) & ("LOC" in selected_entities):
+            tokens.append((token.text, "Location", "#fda"))
+        elif (token.ent_type_ == "ORG") & ("ORG" in selected_entities):
+            tokens.append((token.text, "Organization", "#afa"))
+        else:
+            tokens.append(" " + token.text + " ")
+
+    if anonymize:
+        anonmized_tokens = []
+        for token in tokens:
+            if type(token) == tuple:
+                anonmized_tokens.append(("X" * len(token[0]), token[1], token[2]))
+            else:
+                anonmized_tokens.append(token)
+        return anonmized_tokens
+
+    return tokens
 
 
-def main():
-    """Execution starts here."""
-    # Header
-    title = "Streamlit App Builder"
-    st.set_page_config(page_title=title, page_icon="✨")  # type: ignore
-    # st.image("logoNew.png")
-    st.image("logo.png")
+models = load_models()
 
-    # These two TOML files describe possible modes and codex parameters, respectively.
-    codex_params = toml.load("codex_params.toml")["codex_params"]
-    modes = list(toml.load("modes.toml")["modes"].values())
+# selected_language = st.sidebar.selectbox("Select a language", options=["en", "fr"])
+selected_language = "en"
 
-    def reset_state():
-        """Reset the state to mode defaults."""
-        defaults = {key: input["default_value"] for key, input in codex_params.items()}
-        st.session_state.update(defaults)
-        st.session_state.update(st.session_state.mode["codex_args"])
-        st.session_state.execute_code = False
-        st.session_state.output_code = ""
-        st.session_state.state_initialized = True
+# text_input = st.text_area("TEST - Type a text to anonymize")
 
-    # Let the user select an input mode
-    get_title = lambda mode: mode["title"]
-    mode = st.selectbox(
-        "Code sample", modes, format_func=get_title, on_change=reset_state, key="mode"
-    )
-    if not st.session_state.get("state_initialized"):
-        reset_state()
+text_input = st.text_area(
+    "Type a text to anonymize",
+    height=400,
+    value="""
+Miles Dewey Davis (May 26, 1926 – September 28, 1991) was an American trumpeter, bandleader, and composer. 
 
-    # Let the user set the input code.
-    input_code = st_ace(value=mode["input_code"], language="python", auto_update=True)
+Born in Alton, Illinois, and raised in East St. Louis, Davis left to study at Juilliard in New York City, before dropping out and making his professional debut as a member of saxophonist Charlie Parker's bebop quintet from 1944 to 1948. Shortly after, he recorded the Birth of the Cool sessions for Capitol Records, which were instrumental to the development of cool jazz. In the early 1950s.
 
-    # Draw a grid of inputs.
-    codex_args = {}
-    with st.form("Codex settings"):
-        st.caption("Codex settings")
-        for (key, input), container in zip(codex_params.items(), rows_of_three()):
-            widget_func = getattr(container, input["input_type"])
-            codex_args[key] = widget_func(label=key, key=key, **input["input_params"])
+""",
+)
 
-        # Empty lists cannot be passed in as codex_args. This only applies to "stop".
-        if len(codex_args["stop"]) == 0:
-            del codex_args["stop"]
+selected_entities = st.multiselect(
+    "Select the entities you want to detect",
+    options=["LOC", "PER", "ORG"],
+    default=["LOC", "PER", "ORG"],
+    help="Select the entities you want to detect",
+)
+selected_model = models[selected_language]
 
-        # Clicking the button Unchecks the "execute_code" checkbox.
-        def uncheck_execute_code():
-            st.session_state.execute_code = False
+# uploaded_file = st.file_uploader("or Upload a file", type=["doc", "docx", "pdf", "txt"])
+# if uploaded_file is not None:
+#     text_input = uploaded_file.getvalue()
+#     text_input = text_input.decode("utf-8")
 
-        if st.form_submit_button("Generate Code", on_click=uncheck_execute_code):
-            st.session_state.output_code = complete_code(input_code, codex_args)
+anonymize = st.checkbox("Anonymize")
+doc = selected_model(text_input)
+tokens = process_text(doc, selected_entities)
 
-    output_code = st.session_state.get("output_code", "")
-    output_code = st_ace(value=output_code, language="python", auto_update=True)
+annotated_text(*tokens)
 
-    # The "output_controls" dict defines any final output controls.
-    output_controls = mode.get("output_controls", {})
-
-    # If "execute_button" is defined, then display it.
-    if "execute_button" in output_controls:
-        if st.checkbox(output_controls["execute_button"], key="execute_code"):
-            exec(output_code, globals())
-
-    # If "download_button" is defined, then display it.
-    if "download_button" in output_controls:
-        st.download_button(output_controls["download_button"], output_code)
-
-    st.caption(
-        "Created with [Streamlit](https://streamlit.io/) and "
-        "[OpenAI Codex](https://openai.com/blog/openai-codex/). "
-        "Get your own [Codex API key](https://openai.com/blog/api-no-waitlist/)!"
-    )
-
-
-if __name__ == "__main__":
-    main()
+if anonymize:
+    st.markdown("---")
+    # st.markdown("**Anonymized text**")
+    st.subheader(" Check anonymized text below 👇")
+    anonymized_tokens = process_text(doc, selected_entities, anonymize=anonymize)
+    downloadableText = annotated_text(*anonymized_tokens)
+    # st.download_button(downloadableText, "Download anonymized text", filename="anonymized_text.txt")
+    # st.download_button(label, data, file_name=None, mime=None, key=None, help=None, on_click=None, args=None, kwargs=None)
